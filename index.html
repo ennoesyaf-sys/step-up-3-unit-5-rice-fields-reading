@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reading Lab: Preserving Rice Fields</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --bg:#f2f4fa;--surface:#ffffff;--surface2:#e8ecf7;--line:#ccd3e6;--text:#1c2340;--muted:#566080;
+  --blue:#2859c5;--teal:#0b7a6a;--amber:#8f5a00;--rose:#c0224a;--violet:#7141c4;--green:#2f7a0c;
+  --hot:#fff0c2;--hotline:#d99200;--ok:#1d7a3a;--bad:#c0224a;--okbg:#e0f4e6;--badbg:#fde3e9;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171c2b;--surface:#1f2538;--surface2:#2a3250;--line:#39426a;--text:#dde3f5;--muted:#97a2c4;
+    --blue:#7aa2f7;--teal:#73daca;--amber:#e0af68;--rose:#f7768e;--violet:#bb9af7;--green:#9ece6a;
+    --hot:#4a3d1c;--hotline:#e0af68;--ok:#9ece6a;--bad:#f7768e;--okbg:#243a2a;--badbg:#432633;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171c2b;--surface:#1f2538;--surface2:#2a3250;--line:#39426a;--text:#dde3f5;--muted:#97a2c4;
+  --blue:#7aa2f7;--teal:#73daca;--amber:#e0af68;--rose:#f7768e;--violet:#bb9af7;--green:#9ece6a;
+  --hot:#4a3d1c;--hotline:#e0af68;--ok:#9ece6a;--bad:#f7768e;--okbg:#243a2a;--badbg:#432633;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.55;display:flex;flex-direction:column;overflow:hidden}
+button,select{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* top tab strip */
+.top{display:flex;align-items:stretch;background:var(--surface);border-bottom:1px solid var(--line);flex:none}
+.tabs{display:flex;overflow-x:auto;flex:1;scrollbar-width:thin}
+.tab{font:600 .8rem/1 var(--mono);padding:.9rem 1rem;border:0;border-right:1px solid var(--line);background:none;color:var(--muted);white-space:nowrap;cursor:pointer;display:flex;gap:.55rem;align-items:center}
+.tab:hover{color:var(--text)}
+.tab[aria-current="true"]{color:var(--text);background:var(--bg);box-shadow:inset 0 -3px 0 var(--blue)}
+.tab .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--line);flex:none}
+.tab.seen .dot{background:var(--blue)}
+.tab.done .dot{background:var(--ok)}
+.tools{display:flex;gap:.3rem;padding:.35rem;border-left:1px solid var(--line);align-items:center}
+.tbtn{font:600 .8rem var(--mono);border:1px solid var(--line);background:var(--surface2);border-radius:6px;padding:.45rem .7rem;cursor:pointer}
+.tbtn:hover{border-color:var(--blue)}
+
+main{flex:1;overflow-y:auto}
+.slide{max-width:1040px;margin:0 auto;padding:1.6rem 1.25rem 2.5rem}
+h1{font:700 clamp(1.7rem,4.2vw,2.6rem)/1.15 var(--mono);margin:.2rem 0 .6rem;letter-spacing:-.02em}
+h2{font:700 clamp(1.35rem,3vw,1.85rem)/1.2 var(--sans);margin:.2rem 0 .4rem}
+h3{font:700 1.05rem var(--sans);margin:0 0 .3rem}
+.sub{color:var(--muted);margin:0 0 1.2rem}
+.lead{color:var(--muted);margin:0 0 1.1rem;max-width:68ch}
+p{margin:.3rem 0 .8rem}
+
+.bar{flex:none;display:flex;justify-content:space-between;align-items:center;gap:.6rem;background:var(--surface);border-top:1px solid var(--line);padding:.55rem .9rem}
+.bar .pos{font:600 .85rem var(--mono);color:var(--muted)}
+.btn{font:700 .95rem var(--sans);border:1px solid var(--line);background:var(--surface2);border-radius:6px;padding:.55rem 1rem;cursor:pointer}
+.btn:hover:not(:disabled){border-color:var(--blue)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#101524}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#101524}}
+.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+
+/* code window */
+.win{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:0 0 1rem;overflow:hidden}
+.wh{font:600 .78rem var(--mono);color:var(--muted);padding:.5rem .9rem;border-bottom:1px solid var(--line);background:var(--surface2)}
+.code{font:400 .92rem/1.7 var(--mono);margin:0;padding:.9rem 1rem;white-space:pre-wrap;overflow-x:auto}
+.c-cm{color:var(--muted);font-style:italic}.c-kw{color:var(--violet)}.c-st{color:var(--green)}.c-nu{color:var(--amber)}.c-fn{color:var(--blue)}
+
+/* evidence chip */
+.ev{font:600 .8rem var(--mono);color:var(--amber);background:var(--surface2);border:1px solid var(--line);border-radius:4px;padding:.1rem .45rem;cursor:pointer;vertical-align:baseline;margin:0 .1rem}
+.ev:hover{border-color:var(--amber)}
+
+/* vocabulary */
+.seg{display:flex;gap:.4rem;margin:0 0 1rem;flex-wrap:wrap}
+.
