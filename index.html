@@ -81,4 +81,561 @@ p{margin:.3rem 0 .8rem}
 
 /* vocabulary */
 .seg{display:flex;gap:.4rem;margin:0 0 1rem;flex-wrap:wrap}
-.
+.seg button{font:600 .85rem var(--mono);border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:.45rem .8rem;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface2);border-color:var(--blue);color:var(--blue)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:.8rem}
+.vc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.8rem .95rem}
+.vc .w{font:700 1.05rem var(--mono);color:var(--blue)}
+.vc .ipa{font:400 .8rem var(--mono);color:var(--muted);margin-left:.4rem}
+.vc .pos{font:400 .78rem var(--mono);color:var(--violet);margin-left:.4rem}
+.vc .def{margin:.35rem 0 .4rem;color:var(--green)}
+.vc .def::before{content:'= ';color:var(--muted);font-family:var(--mono)}
+.vc .seen{font-size:.85rem;color:var(--muted)}
+
+/* test rows */
+.rows{padding:.3rem 0}
+.trow{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:.6rem 1rem;padding:.7rem .95rem;border-bottom:1px solid var(--line);align-items:start}
+.trow:last-child{border-bottom:0}
+.trow.pass{background:var(--okbg)}.trow.fail{background:var(--badbg)}
+.tw b{font-family:var(--mono);font-size:.95rem}
+.pos{font:400 .78rem var(--mono);color:var(--violet)}
+select{width:100%;font-size:.95rem;padding:.5rem .6rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--text)}
+.locked{color:var(--muted)}
+.tag{font:600 .7rem var(--mono);color:var(--amber);border:1px solid var(--line);border-radius:4px;padding:.05rem .35rem;margin-left:.3rem}
+.fb{font-size:.92rem;margin-top:.5rem}
+.fb.pass{color:var(--ok)}.fb.fail{color:var(--bad)}
+.fb .ev{color:var(--amber)}
+.sent{padding:.8rem .95rem;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.sent:last-child{border-bottom:0}
+.sent select{width:auto;min-width:11rem}
+.sent .k{font:700 .85rem var(--mono);color:var(--muted)}
+.sent.pass{background:var(--okbg)}.sent.fail{background:var(--badbg)}
+.sent .fb{flex-basis:100%;margin:0}
+
+/* flow */
+.fcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.7rem;margin-bottom:1rem}
+.fcard{position:relative;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.8rem .9rem .8rem 2.6rem;cursor:pointer;display:flex;flex-direction:column;gap:.15rem;font-size:.95rem}
+.fcard b{font-family:var(--mono);font-size:.85rem;color:var(--violet)}
+.fcard:hover:not(:disabled){border-color:var(--blue)}
+.fcard .badge{position:absolute;left:.7rem;top:.75rem;width:1.5rem;height:1.5rem;border-radius:50%;border:1px dashed var(--line);display:grid;place-items:center;font:700 .8rem var(--mono)}
+.fcard.picked{border-color:var(--blue);background:var(--surface2)}
+.fcard.picked .badge{background:var(--blue);border:0;color:#fff}
+:root[data-theme="dark"] .fcard.picked .badge{color:#101524}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fcard.picked .badge{color:#101524}}
+.fcard:disabled{color:var(--text);cursor:default}
+.map{display:grid;gap:.4rem}
+.mrow{display:grid;grid-template-columns:3rem 1fr;gap:.6rem;align-items:baseline;padding:.5rem .8rem;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.mrow .pn{font:700 .85rem var(--mono);color:var(--blue)}
+.mrow.good{border-left:4px solid var(--ok)}.mrow.bad{border-left:4px solid var(--bad)}
+.note{padding:.7rem .9rem;border-left:4px solid var(--hotline);background:var(--surface);border-radius:0 6px 6px 0;margin:.8rem 0;font-size:.95rem}
+.res{padding:.7rem .9rem;border-radius:6px;margin:.8rem 0;font-weight:700}
+.res.pass{background:var(--okbg);color:var(--ok)}.res.fail{background:var(--badbg);color:var(--bad)}
+
+/* passage lines (shared by drawer and topic test) */
+.no{font:400 .8rem/1.9 var(--mono);color:var(--muted);text-align:right;user-select:none}
+.ln{display:grid;grid-template-columns:2.2rem 1fr;gap:.7rem;padding:.2rem .8rem .2rem .3rem}
+.ln .tx{line-height:1.6}
+.ln.hot{background:var(--hot);box-shadow:inset 4px 0 0 var(--hotline)}
+.pc{font:italic 400 .78rem var(--mono);color:var(--muted);padding:.8rem .8rem .25rem 2.5rem}
+.show-topic .is-topic{background:var(--surface2);box-shadow:inset 4px 0 0 var(--green)}
+.show-topic .is-topic.hot{background:var(--hot);box-shadow:inset 4px 0 0 var(--hotline)}
+.show-conn .m-conn{color:var(--blue);font-weight:700;text-decoration:underline solid;text-decoration-thickness:2px;text-underline-offset:3px}
+.show-mod .m-mod{color:var(--violet);font-weight:700;text-decoration:underline wavy;text-underline-offset:3px}
+.show-pas .m-pas{color:var(--teal);font-weight:700;text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:3px}
+.show-adv .m-adv{color:var(--amber);font-weight:700;text-decoration:underline dashed;text-underline-offset:3px}
+
+/* topic test */
+.tls{padding:.3rem 0}
+.tl{display:grid;grid-template-columns:2.2rem 1fr;gap:.7rem;width:100%;text-align:left;border:0;background:none;padding:.35rem .9rem .35rem .3rem;cursor:pointer;font-size:.97rem;line-height:1.55}
+.tl:hover:not(:disabled){background:var(--surface2)}
+.tl.sel{background:var(--surface2);box-shadow:inset 4px 0 0 var(--blue)}
+.tl.right{background:var(--okbg);box-shadow:inset 4px 0 0 var(--ok)}
+.tl.wrong{background:var(--badbg);box-shadow:inset 4px 0 0 var(--bad)}
+.tl:disabled{color:var(--text);cursor:default}
+.win .fb{padding:.2rem .95rem .8rem}
+
+/* questions */
+.qgrid{display:grid;grid-template-columns:5.5rem 1fr;gap:1rem;align-items:start}
+.qnav{display:grid;gap:.4rem}
+.qnav button{font:700 .9rem var(--mono);padding:.6rem;border:1px solid var(--line);background:var(--surface);border-radius:6px;cursor:pointer;display:flex;justify-content:space-between}
+.qnav button[aria-current="true"]{border-color:var(--blue);background:var(--surface2)}
+.qnav button.shown::after{content:'✓';color:var(--ok)}
+.qbody{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+.qq{font-weight:700;font-size:1.1rem;margin:0 0 .8rem}
+.ans{border-left:4px solid var(--ok);padding:.2rem .9rem;margin:.8rem 0}
+.ans .lbl,.why .lbl{font:700 .78rem var(--mono);color:var(--muted);display:block}
+.why{border-left:4px solid var(--blue);padding:.2rem .9rem;margin:.8rem 0}
+
+/* fact vs opinion */
+.fo{display:grid;grid-template-columns:1fr auto;gap:.5rem 1rem;padding:.75rem .95rem;border-bottom:1px solid var(--line);align-items:center}
+.fo:last-child{border-bottom:0}
+.fo.pass{background:var(--okbg)}.fo.fail{background:var(--badbg)}
+.fo .fb{grid-column:1/-1;margin:0}
+.fo .pair{display:flex;gap:.4rem}
+.fo .pair button{font:700 .82rem var(--mono);padding:.45rem .75rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);cursor:pointer}
+.fo .pair button:hover:not(:disabled){border-color:var(--blue)}
+.fo .pair button.chosen{background:var(--surface2);border-color:var(--blue)}
+.fo .pair button:disabled{cursor:default}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.two ol{margin:0;padding:.7rem 1rem .8rem 2.2rem}
+.two li{margin:.3rem 0;font-size:.95rem}
+
+/* genre + language */
+.parts{display:grid;gap:.6rem}
+.part{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.7rem .95rem;display:grid;grid-template-columns:2rem 1fr;gap:.2rem .7rem}
+.part .l{font:700 1rem var(--mono);color:var(--violet)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem}
+.feat h3{font-family:var(--mono);font-size:.95rem;color:var(--blue)}
+.feat .ex{font-style:italic;color:var(--muted);font-size:.93rem}
+.feat .here{margin:.4rem 0 0;font-size:.93rem}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:.8rem}
+.ul{margin:.2rem 0 .8rem;padding-left:1.2rem}
+.log{font:400 .95rem/1.9 var(--mono);padding:1rem;white-space:pre-wrap}
+.log .p{color:var(--ok)}.log .f{color:var(--bad)}.log .n{color:var(--muted)}
+
+/* drawer */
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,100%);background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;z-index:20;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);transform:translateX(104%);visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s;box-shadow:-10px 0 30px rgba(0,0,0,.18)}
+#drawer.open{transform:none;visibility:visible;transition-delay:0s}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:.55rem .8rem;background:var(--surface2);border-bottom:1px solid var(--line);font:600 .8rem var(--mono)}
+.dtools{display:flex;flex-wrap:wrap;gap:.35rem;padding:.55rem .8rem;border-bottom:1px solid var(--line)}
+.dtools button{font:600 .75rem var(--mono);padding:.3rem .55rem;border:1px solid var(--line);border-radius:5px;background:var(--bg);cursor:pointer}
+.dtools button[aria-pressed="true"]{border-color:var(--blue);color:var(--blue);background:var(--surface2)}
+#plines{flex:1;overflow-y:auto;padding-bottom:1rem}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .trow{grid-template-columns:1fr}
+  .qgrid{grid-template-columns:1fr}
+  .qnav{grid-template-columns:repeat(9,1fr)}
+  .qnav button{justify-content:center;padding:.5rem 0}
+  .qnav button.shown::after{content:''}
+  .qnav button.shown{border-color:var(--ok)}
+  .two,.cols{grid-template-columns:1fr}
+  .fo{grid-template-columns:1fr}
+  #drawer{top:auto;left:0;width:100%;height:64%;border-left:0;border-top:1px solid var(--line);transform:translateY(104%);border-radius:12px 12px 0 0}
+  #drawer.open{transform:none}
+  .slide{padding:1.2rem .9rem 2rem}
+}
+@media (prefers-reduced-motion: reduce){#drawer{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <nav class="tabs" id="tabs" aria-label="Lesson modules"></nav>
+  <div class="tools">
+    <button class="tbtn" id="btnText" title="Open the text (P)">text</button>
+    <button class="tbtn" id="btnTheme" title="Light / dark">theme</button>
+  </div>
+</header>
+
+<main id="main" tabindex="-1"></main>
+
+<footer class="bar">
+  <button class="btn" id="prev">Back</button>
+  <span class="pos" id="pos"></span>
+  <button class="btn primary" id="next">Next</button>
+</footer>
+
+<aside id="drawer" aria-label="The text">
+  <div class="dh"><span>preserving_rice_fields.txt</span><button class="tbtn" id="dclose" aria-label="Close the text">close</button></div>
+  <div class="dtools" id="dtools">
+    <button data-mode="topic" aria-pressed="false">topic sentences</button>
+    <button data-mode="conn" aria-pressed="false">connectives</button>
+    <button data-mode="mod" aria-pressed="false">modals</button>
+    <button data-mode="pas" aria-pressed="false">passive</button>
+    <button data-mode="adv" aria-pressed="false">adverbs</button>
+  </div>
+  <div id="plines"></div>
+</aside>
+
+<script>
+/* ============ DATA ============ */
+const P=[
+{id:'P1',note:'introduction · statement of issue',topic:1,why:'It gives the big idea: rice fields are central. L2 only explains why.',lines:[
+[1,`Rice fields hold a central position in global agriculture, providing sustenance, livelihoods, and cultural significance to millions of people around the world.`],
+[2,`Their existence is essential for ensuring food security, economic stability, and environmental sustainability in both rural and urban contexts.`]]},
+{id:'P2',note:'first and foremost · food security',topic:3,why:'"First and foremost" starts the first main point: food security. L4–L5 give details.',lines:[
+[3,`<span class="m-conn">First and foremost</span>, rice fields serve as a basis of global food security, nourishing billions of people as a staple food source.`],
+[4,`In many regions, <span class="m-adv">particularly</span> across Asia, rice is a dietary staple, forming the foundation of daily meals and providing essential nutrients for human health.`],
+[5,`The cultivation of rice fields ensures a reliable food supply, helping to decrease hunger and malnutrition in places where rice is a dietary staple.`]]},
+{id:'P3',note:'furthermore · rural livelihoods',topic:6,why:'It states the main idea: rice fields support rural livelihoods. L7–L8 give examples.',lines:[
+[6,`<span class="m-conn">Furthermore</span>, the presence of rice fields supports rural livelihoods and agricultural economies, <span class="m-adv">particularly</span> in developing countries where rice farming is a primary source of income.`],
+[7,`Smallholder farmers, <span class="m-adv">often</span> working family-owned plots, rely on rice cultivation for their income and economic well-being.`],
+[8,`<span class="m-conn">Additionally</span>, rice farming activities create employment opportunities along the agricultural value chain, from planting and harvesting to processing and marketing, <span class="m-conn">thus</span> contributing to rural employment and increased income.`]]},
+{id:'P4',note:'moreover · environment',topic:9,why:'It states the main idea: rice fields protect the environment. L10–L11 explain how.',lines:[
+[9,`<span class="m-conn">Moreover</span>, rice fields play a vital role in maintaining environmental sustainability and ecosystem health.`],
+[10,`Wetland rice cultivation provides important ecosystem services, including purifying water, mitigating floods, and providing habitat for wildlife.`],
+[11,`Rice fields are an important habitat for various species of birds, fish, amphibians, contributing to biodiversity conservation and ecological resilience.`]]},
+{id:'P5',note:'however · rice fields are decreasing',topic:12,why:'It is the main idea of the paragraph: the number of rice fields is going down. L13–L15 give the causes.',lines:[
+[12,`<span class="m-conn">However</span>, the number of rice fields has been decreasing over the past years.`],
+[13,`One of the primary causes of decreasing number of rice fields in Indonesia is rapid urbanization leading to land conversion for infrastructure development and urban expansion.`],
+[14,`As cities expand and population densities increase, agricultural land <span class="m-pas">is <span class="m-adv">often</span> converted</span> into residential, commercial, and industrial areas, leading to the loss of prime rice-growing area.`],
+[15,`<span class="m-conn">Additionally</span>, the conversion of rice fields into non-agricultural uses, such as tourism resorts and industrial estates, <span class="m-adv">further</span> reduces the available land for rice cultivation.`]]},
+{id:'P6',note:'impact · food security and farmers',topic:16,why:'It names the main idea: the decrease has big effects. L17–L18 give the effects.',lines:[
+[16,`The decreasing number of rice fields in Indonesia has significant implications on food security and rural livelihoods.`],
+[17,`Rice is a staple food for the majority of Indonesians, and any decrease in rice production <span class="m-mod">could lead</span> to food shortages and price volatility, <span class="m-adv">particularly</span> affecting low-income households.`],
+[18,`<span class="m-conn">Furthermore</span>, the loss of rice fields threatens the livelihoods of millions of smallholder farmers who depend on rice cultivation for their income and livelihood.`]]},
+{id:'P7',note:'in conclusion · summary and recommendation',topic:19,why:'"In conclusion" repeats the main idea of the whole text. L20–L21 add the problem and the recommendation.',lines:[
+[19,`<span class="m-conn">In conclusion</span>, rice fields play a critical role in food security, economic stability, and environmental sustainability.`],
+[20,`<span class="m-conn">However</span>, their number decreases year by year because of rapid urbanization and land conversion, which threatens food security and rural livelihoods.`],
+[21,`By prioritizing the preservation and revitalization of rice fields, Indonesia <span class="m-mod">can secure</span> its food security, support its rural livelihoods, and conserve its natural heritage for future generations.`]]}
+];
+
+const CORE=[
+['sustenance','ˈsʌstənəns','n','food and drink that give you strength and keep you alive',[1]],
+['sustainability','sə,steɪnəˈbɪləti','n','the ability to continue for a long time',[2,9,19]],
+['nourishing','ˈnɜːrɪʃɪŋ','v','giving people the food they need to grow and stay healthy',[3]],
+['dietary staple','ˈdaɪəteri ˈsteɪpəl','n','the main food that people eat almost every day',[4,5]],
+['essential','ɪˈsenʃəl','adj','very important; you must have it',[2,4]],
+['livelihoods','ˈlaɪvlihʊdz','n','the ways people earn money to live',[1,6,18]],
+['biodiversity','ˌbaɪoʊdaɪˈvɜːrsəti','n','all the different kinds of plants and animals in one place',[11]],
+['resilience','rɪˈzɪliəns','n','the ability to become strong again after a problem',[11]],
+['urbanization','ˌɜːrbənəˈzeɪʃən','n','more people move to cities, and cities grow bigger',[13,20]],
+['conversion','kənˈvɜːrʒən','n','changing something into something else (here: rice fields into buildings)',[13,15,20]],
+['shortages','ˈʃɔːrtɪdʒəz','n','not having enough of something that people need',[17]],
+['volatility','ˌvɑːləˈtɪləti','n','changing quickly, up and down (for example, prices)',[17]],
+['cultivation','ˌkʌltɪˈveɪʃən','n','growing plants or crops on land',[5,7,10]],
+['revitalization','ˌriːˌvaɪtələˈzeɪʃən','n','giving new life and energy to something again',[21]],
+['heritage','ˈherɪtɪdʒ','n','important things from the past that we keep for the future',[21]]
+];
+const BONUS=[
+['smallholder','','adj','a farmer with a small piece of land',[7,18]],
+['infrastructure','','n','roads, bridges, and buildings that a city needs',[13]],
+['habitat','','n','the natural home of a plant or an animal',[10,11]],
+['mitigating','','v','making a bad thing less serious',[10]],
+['malnutrition','','n','bad health because you do not eat enough good food',[5]],
+['implications','','n','results or effects that something may have later',[16]],
+['prioritizing','','v','treating something as the most important thing to do first',[21]]
+];
+
+const DEFS={
+a:'food and drink regarded as a source of strength',
+b:'ability to continue over a period of time',
+c:'containing substances necessary for growth, health, and good condition',
+d:'the food or foods that a person or animal eats most often',
+e:'absolutely necessary; extremely important',
+f:'the way that you earn the money you need for living',
+g:'the ability to be happy, successful, etc. again after something difficult or bad has happened',
+h:'the process by which more and more people move to live in cities'};
+const MW={
+a:{w:'sustenance',pos:'n',ev:[1],clue:'"providing sustenance, livelihoods…" (L1): sustenance is what keeps people alive and strong.'},
+b:{w:'sustainability',pos:'n',ev:[2,9],clue:'"environmental sustainability" (L2, L9): something that can continue for a long time.'},
+c:{w:'nourishing',pos:'v',ev:[3],clue:'"nourishing billions of people" (L3): giving food that helps people grow and stay healthy.'},
+d:{w:'dietary staple',pos:'n',ev:[4],clue:'"rice is a dietary staple, forming the foundation of daily meals" (L4): the food people eat most.'},
+e:{w:'essential',pos:'adj.',ev:[4],clue:'"essential nutrients for human health" (L4): people must have them.'},
+f:{w:'livelihood',pos:'n',ev:[6,7],clue:'"rely on rice cultivation for their income" (L6–L7): livelihood is how you earn money.'},
+g:{w:'resilience',pos:'n',ev:[11],clue:'"ecological resilience" (L11): an ecosystem can recover after trouble.'},
+h:{w:'urbanization',pos:'n',ev:[13],clue:'"rapid urbanization … urban expansion" (L13): more people live in cities and cities grow.'}};
+const MORDER=['g','c','b','h','e','a','d','f'];
+
+const WORDLIST=['biodiversity','conversion','cultivation','dietary staple','essential','heritage','livelihoods','nourishing','resilience','revitalization','shortage','sustainability','sustenance','urbanization','volatility'];
+const FILL=[
+{k:'b',pre:'Efforts to promote the',post:'of ecosystems can restore their health.',ans:['resilience','revitalization'],why:'Resilience = the ability to become strong again. "Restore their health" means the ecosystem recovers. (Revitalization also fits.)',ev:[11,21]},
+{k:'e',pre:'Water is an',post:'resource for all living things.',ans:['essential'],why:'Essential = you must have it. All living things need water.',ev:[2,4]},
+{k:'f',pre:'',post:'can lead to challenges like traffic congestion and pollution.',ans:['urbanization'],why:'When cities grow fast, there is more traffic and pollution.',ev:[13]},
+{k:'h',pre:'There’s a',post:'of food when there isn’t enough for everyone.',ans:['shortage'],why:'"Not enough food" = a shortage (the text says "food shortages").',ev:[17]},
+{k:'i',pre:'Protecting wildlife helps maintain',post:'in ecosystems.',ans:['biodiversity'],why:'Protecting wildlife keeps many kinds of living things in nature.',ev:[11]},
+{k:'j',pre:'Farmers engage in',post:'to grow crops.',ans:['cultivation'],why:'Growing crops on land = cultivation.',ev:[5,7]},
+{k:'l',pre:'Preserving old buildings and traditions helps maintain cultural',post:'.',ans:['heritage'],why:'Old buildings and traditions come from the past: cultural heritage.',ev:[21]},
+{k:'o',pre:'Economic',post:'can cause prices to go up and down.',ans:['volatility'],why:'Prices that go up and down quickly = volatility.',ev:[17]}
+];
+
+const FLOW={
+P1:{tag:'(opening)',text:'Rice fields are central to farming, food, and life around the world.'},
+P2:{tag:'First and foremost',text:'Rice fields give people food: food security.'},
+P3:{tag:'Furthermore',text:'Rice fields give farmers work and money: rural livelihoods.'},
+P4:{tag:'Moreover',text:'Rice fields protect nature: clean water, less flood, homes for animals.'},
+P5:{tag:'However',text:'But the number of rice fields is going down. Why? Cities grow.'},
+P6:{tag:'(next)',text:'What happens with fewer rice fields? Less food, higher prices, farmers in trouble.'},
+P7:{tag:'In conclusion',text:'Summary: protect and revive rice fields.'}};
+const FSHUF=['P4','P7','P2','P6','P1','P5','P3'];
+const FORDER=['P1','P2','P3','P4','P5','P6','P7'];
+const FROLE={P1:['Statement of issue',[1,2]],P2:['Supporting point 1',[3,4,5]],P3:['Supporting point 2',[6,7,8]],P4:['Supporting point 3',[9,10,11]],P5:['Contrast point 1: the problem',[12,13,14,15]],P6:['Contrast point 2: the impact',[16,17,18]],P7:['Recommendation',[19,20,21]]};
+
+const QS=[
+{k:'a',q:'What are the potential solutions to preserve and revitalize rice fields in the face of urbanization and land conversion?',a:'Give priority to preserving and revitalizing rice fields. This means protecting rice fields from being changed into houses, shops, factories, or tourism resorts.',why:'The solution is in the last sentence: "By prioritizing the preservation and revitalization of rice fields…" (L21). L14–L15 show what must be stopped: conversion into residential, commercial, and industrial areas and tourism resorts.',id:'Teks tidak membuat daftar solusi. Solusi utama ada di kalimat terakhir (L21); L14–15 menunjukkan apa yang harus dicegah.',ev:[14,15,21]},
+{k:'b',q:'What is the relationship between rice fields and rural livelihoods?',a:'Rice fields support rural livelihoods. Farmers earn their income from rice, and rice farming creates jobs from planting to marketing. If rice fields disappear, farmers lose their livelihoods.',why:'L6: rice fields support rural livelihoods. L7: smallholder farmers rely on rice for income. L8: jobs along the value chain. L18: the loss of rice fields threatens livelihoods.',id:'Hubungannya saling bergantung: sawah menjadi sumber penghasilan dan pekerjaan petani desa.',ev:[6,7,8,18]},
+{k:'c',q:'How do rice fields contribute to biodiversity conservation?',a:'Rice fields are a habitat for birds, fish, and amphibians. Many kinds of animals can live there, so rice fields help protect biodiversity.',why:'L11 says rice fields are an important habitat for various species and contribute to biodiversity conservation. L10 adds that they provide habitat for wildlife.',id:'Sawah menjadi habitat burung, ikan, dan amfibi sehingga menjaga keanekaragaman hayati.',ev:[10,11]},
+{k:'d',q:'What is the primary role of rice fields in global agriculture?',a:'Rice fields hold a central position: they provide sustenance, livelihoods, and cultural significance. Most of all, they are a basis of global food security.',why:'L1 names the central position and three roles. L3 says rice fields are "a basis of global food security".',id:'Peran utama: dasar ketahanan pangan dunia (L3), di samping penghidupan dan nilai budaya (L1).',ev:[1,3]},
+{k:'e',q:'What is the significance of prioritizing the preservation and revitalization of rice fields?',a:'It helps Indonesia secure its food security, support its rural livelihoods, and keep its natural heritage for future generations.',why:'L21 gives three results of prioritizing preservation and revitalization. L19 repeats why rice fields matter.',id:'Pentingnya: menjamin ketahanan pangan, menopang penghidupan desa, dan menjaga warisan alam (L21).',ev:[19,21]},
+{k:'f',q:'What is one of the primary causes of the decreasing number of rice fields in Indonesia?',a:'Rapid urbanization. It leads to land conversion for infrastructure development and urban expansion.',why:'L13 says it directly: "One of the primary causes … is rapid urbanization". L14 explains: cities grow, so farmland becomes housing and factories.',id:'Penyebab utama: urbanisasi yang cepat sehingga lahan sawah dialihfungsikan (L13).',ev:[13,14]},
+{k:'g',q:'How do rice fields contribute to ensuring food security?',a:'Rice fields feed billions of people as a staple food. They give a reliable food supply and help reduce hunger and malnutrition.',why:'L3: a basis of global food security. L4: rice is a dietary staple. L5: a reliable food supply that decreases hunger and malnutrition.',id:'Sawah menyediakan makanan pokok yang stabil, sehingga mengurangi kelaparan dan malnutrisi.',ev:[3,4,5]},
+{k:'h',q:'How does the loss of rice fields impact food security in Indonesia?',a:'Less rice production can cause food shortages and price volatility, especially for low-income households.',why:'L17 says a decrease in rice production "could lead to food shortages and price volatility". L16 introduces this as an implication for food security.',id:'Produksi beras turun, sehingga pangan langka dan harga naik-turun, terutama merugikan keluarga berpenghasilan rendah.',ev:[16,17]},
+{k:'i',q:'Why are rice fields important for maintaining environmental sustainability?',a:'Rice fields keep ecosystems healthy. They purify water, reduce floods, give homes to wildlife, and support biodiversity and resilience.',why:'L9 states the idea. L10 lists the ecosystem services: purifying water, mitigating floods, habitat. L11 adds biodiversity and ecological resilience.',id:'Sawah menjaga ekosistem: menyaring air, mengurangi banjir, dan menjadi habitat satwa (L9–11).',ev:[9,10,11]}
+];
+
+const FOS=[
+{t:'The number of rice fields has been decreasing over the past years.',type:'fact',why:'We can check it with land-use data over the years.',ev:[12]},
+{t:'Rice fields hold a central position in global agriculture.',type:'opinion',why:'"Central position" is a judgment. Someone may think another crop is more important.',ev:[1]},
+{t:'Smallholder farmers rely on rice cultivation for their income.',type:'fact',why:'We can check it by asking farmers about their income.',ev:[7]},
+{t:'Rice fields play a vital role in maintaining environmental sustainability.',type:'opinion',why:'"Vital" is the writer’s evaluation. It is not a number we can measure.',ev:[9]},
+{t:'Agricultural land is often converted into residential, commercial, and industrial areas.',type:'fact',why:'We can see and count these changes (see Picture 5.5 in the book).',ev:[14]},
+{t:'Indonesia can secure its food security by preserving rice fields.',type:'opinion',why:'It is a belief about the future ("can secure"). Nobody can prove it today.',ev:[21]},
+{t:'Rice fields provide habitat for birds, fish, and amphibians.',type:'fact',why:'Scientists can observe these animals living in rice fields.',ev:[11]},
+{t:'Rice fields play a critical role in food security, economic stability, and environmental sustainability.',type:'opinion',why:'"Critical role" is a strong judgment by the writer.',ev:[19]},
+{t:'Rice is a staple food for the majority of Indonesians.',type:'fact',why:'We can check it with national food consumption data.',ev:[17]},
+{t:'Their existence is essential for ensuring food security.',type:'opinion',why:'"Essential" is a strong claim. It shows the writer’s view.',ev:[2]}
+];
+
+const LANG=[
+{n:'Thinking verbs',def:'Verbs about thoughts: think, believe, understand, consider.',ex:'Many believe that the government should invest more in renewable energy.',here:null,note:'There is no thinking verb in this text. Try your own: "Many people believe that rice fields should be protected."'},
+{n:'Modal verbs',def:'can, could, may, might, will, would, shall, should, must. They show possibility, necessity, or obligation.',ex:'Parents should encourage their children to read more books.',here:[[[17],'could lead'],[[21],'can secure']],mode:'mod'},
+{n:'Adverbs of manner',def:'Words that say how an action is done: clearly, quickly, slowly, carefully, strongly.',ex:'The economy has grown rapidly in recent years, leading to an increase in job opportunities.',here:[[[6],'particularly'],[[7],'often'],[[15],'further']],mode:'adv',note:'These are other kinds of adverbs. This text has no adverb of manner like "rapidly" ("rapid" in L13 is an adjective).'},
+{n:'Connectives',def:'Words that link ideas, sentences, or paragraphs: however, on the other hand, in contrast, moreover, furthermore.',ex:'The new law is expected to improve public safety. However, some critics argue that it infringes on personal freedom.',here:[[[3],'First and foremost'],[[6],'Furthermore'],[[8],'Additionally, thus'],[[9],'Moreover'],[[12],'However'],[[19],'In conclusion']],mode:'conn'},
+{n:'Passive voice',def:'Puts the focus on the action, not on who does it: be + past participle.',ex:'It is believed that solutions are being discussed to tackle global food insecurity.',here:[[[14],'is often converted']],mode:'pas'},
+{n:'Reported speech',def:'Tells what someone said or wrote, without their exact words.',ex:'According to various studies, people who exercise regularly are less likely to develop chronic health issues.',here:null,note:'There is no reported speech here: the writer does not mention what experts or studies say.'}
+];
+
+/* ============ HELPERS ============ */
+const $=s=>document.querySelector(s);
+const main=$('#main'),drawer=$('#drawer');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fmt(ls){ls=[...ls].sort((a,b)=>a-b);const out=[];let s=ls[0],p=s;for(let i=1;i<=ls.length;i++){const c=ls[i];if(c===p+1){p=c;continue}out.push(s===p?`L${s}`:`L${s}–${p}`);s=c;p=c}return out.join(', ')}
+function ev(ls,mode){return `<button class="ev" data-l="${ls.join(',')}"${mode?` data-m="${mode}"`:''} aria-label="Show ${fmt(ls)} in the text">${fmt(ls)}</button>`}
+
+const S={vtab:'core',match:{sel:{},checked:false},fill:{sel:{},checked:false},flow:{pick:[],done:false},topic:{sel:{},checked:false},q:{i:0,shown:{}},fo:{ans:{},table:false}};
+const SCORE={match:null,fill:null,flow:null,topic:null,q:null,fo:null};
+const DONE={};const SEEN=new Set();
+let cur=0;
+
+/* ============ PASSAGE DRAWER ============ */
+function renderPassage(){
+  $('#plines').innerHTML=P.map(p=>`<div class="pc">// ${p.id} · ${p.note}</div>`+p.lines.map(([n,h])=>`<div class="ln${n===p.topic?' is-topic':''}" data-l="${n}"><span class="no">${n}</span><span class="tx">${h}</span></div>`).join('')).join('');
+}
+function setMode(m,on){
+  const el=$('#plines');el.classList.toggle('show-'+m,on);
+  const b=document.querySelector(`#dtools [data-mode="${m}"]`);if(b)b.setAttribute('aria-pressed',on?'true':'false');
+}
+function openPassage(lines,mode){
+  document.querySelectorAll('.ln.hot').forEach(x=>x.classList.remove('hot'));
+  (lines||[]).forEach(n=>{const e=document.querySelector(`#plines .ln[data-l="${n}"]`);if(e)e.classList.add('hot')});
+  if(mode)setMode(mode,true);
+  drawer.classList.add('open');
+  if(lines&&lines.length){const f=document.querySelector(`#plines .ln[data-l="${Math.min(...lines)}"]`);if(f)setTimeout(()=>f.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'}),80)}
+}
+function closePassage(){drawer.classList.remove('open')}
+
+/* ============ SLIDES ============ */
+function rStart(){return `<section class="slide">
+<h1>Preserving Rice Fields for Future Generations</h1>
+<p class="sub">Step Up 3 · Unit 5 Environment · discussion text</p>
+<div class="note">The text has 7 paragraphs. Every sentence has a number: L1, L2, … L21. Every answer in this lesson shows its <b>evidence</b>, for example ${ev([13])}. Tap it and the text opens with that line highlighted.</div>
+<h3>What you will do</h3>
+<ol class="ul">
+<li>Learn the words that help you read the text.</li>
+<li>Follow the order of ideas, from the first paragraph to the last.</li>
+<li>Find the topic sentence of each paragraph.</li>
+<li>Answer the questions and prove each answer with a line number.</li>
+<li>Sort facts and opinions.</li>
+<li>Study the discussion text: structure and language features.</li>
+</ol>
+<div class="actions"><button class="btn primary" data-go="1">Start with the words</button><button class="btn" data-act="open-text">Open the text</button></div>
+</section>`}
+
+function rVocab(){
+  const list=S.vtab==='core'?CORE:BONUS;
+  return `<section class="slide">
+<h2>Learn the words first</h2>
+<p class="lead">These words are in the text. Read the simple meaning, then tap the line number to see the word in the text.</p>
+<div class="seg"><button data-act="vtab" data-v="core" aria-pressed="${S.vtab==='core'}">core words (15)</button><button data-act="vtab" data-v="bonus" aria-pressed="${S.vtab==='bonus'}">bonus words (7)</button></div>
+<div class="vgrid">${list.map(([w,ipa,pos,def,ls])=>`<div class="vc"><div><span class="w">${w}</span>${ipa?`<span class="ipa">/${ipa}/</span>`:''}<span class="pos">${pos}</span></div><p class="def">${def}</p><div class="seen">in the text: ${ev(ls)}</div></div>`).join('')}</div>
+</section>`}
+
+function rMatch(){
+  const m=S.match;const keys=Object.keys(MW);
+  return `<section class="slide">
+<h2>Match the word and its meaning</h2>
+<p class="lead">Find each word in the text. Use the context to choose the right meaning. The first one is an example.</p>
+<div class="win"><div class="wh">match.test</div><div class="rows">${keys.map(k=>{
+  const ex=k==='a';const val=ex?'a':(m.sel[k]||'');const res=m.checked&&!ex?(val===k?'pass':'fail'):'';
+  return `<div class="trow ${res}"><div class="tw"><b>${k}. ${MW[k].w}</b> <span class="pos">${MW[k].pos}</span></div><div>${ex?`<span class="locked">${DEFS.a}</span><span class="tag">example</span>`:`<select data-kind="match" data-k="${k}" aria-label="Meaning of ${MW[k].w}"${m.checked?' disabled':''}><option value="">choose a meaning…</option>${MORDER.map(d=>`<option value="${d}"${val===d?' selected':''}>${DEFS[d]}</option>`).join('')}</select>`}
+  ${m.checked&&!ex?`<div class="fb ${res}">${res==='pass'?'✓ ':'✗ Answer: '+DEFS[k]+'. '}${MW[k].clue} ${ev(MW[k].ev)}</div>`:''}</div></div>`}).join('')}</div></div>
+${m.checked?`<div class="res ${SCORE.match&&SCORE.match[0]===7?'pass':'fail'}">${SCORE.match?SCORE.match[0]+' / 7 correct':'Answers shown'}</div>`:''}
+<div class="actions"><button class="btn primary" data-act="match-check"${m.checked?' disabled':''}>Run test</button><button class="btn" data-act="match-show">Show answers</button><button class="btn" data-act="match-reset">Reset</button></div>
+</section>`}
+
+function rFill(){
+  const f=S.fill;
+  return `<section class="slide">
+<h2>Complete the sentences</h2>
+<p class="lead">Choose the best word from the pronunciation list for each sentence.</p>
+<div class="win"><div class="wh">fill.test</div>${FILL.map(r=>{
+  const val=f.sel[r.k]||'';const res=f.checked?(r.ans.includes(val)?'pass':'fail'):'';
+  return `<div class="sent ${res}"><span class="k">${r.k}.</span>${r.pre?`<span>${r.pre}</span>`:''}<select data-kind="fill" data-k="${r.k}" aria-label="Missing word for sentence ${r.k}"${f.checked?' disabled':''}><option value="">choose…</option>${WORDLIST.map(w=>`<option value="${w}"${val===w?' selected':''}>${w}</option>`).join('')}</select><span>${r.post}</span>
+  ${f.checked?`<div class="fb ${res}">${res==='pass'?'✓ ':'✗ Answer: '+r.ans[0]+'. '}${r.why} ${ev(r.ev)}</div>`:''}</div>`}).join('')}</div>
+${f.checked?`<div class="res ${SCORE.fill&&SCORE.fill[0]===8?'pass':'fail'}">${SCORE.fill?SCORE.fill[0]+' / 8 correct':'Answers shown'}</div>`:''}
+<div class="actions"><button class="btn primary" data-act="fill-check"${f.checked?' disabled':''}>Run test</button><button class="btn" data-act="fill-show">Show answers</button><button class="btn" data-act="fill-reset">Reset</button></div>
+</section>`}
+
+function rFlow(){
+  const f=S.flow;
+  const cards=FSHUF.map(id=>{const c=FLOW[id];const i=f.pick.indexOf(id);return `<button class="fcard${i>=0?' picked':''}" data-act="flow-pick" data-p="${id}"${i>=0||f.done?' disabled':''}><span class="badge">${i>=0?i+1:''}</span><b>${c.tag}</b><span>${c.text}</span></button>`}).join('');
+  let out='';
+  if(f.done){
+    const sc=f.pick.filter((p,i)=>p===FORDER[i]).length;
+    out=(f.shown?'':`<div class="res ${sc===7?'pass':'fail'}">${sc===7?'All 7 in the right order!':sc+' / 7 in the right place'}</div>`)+`<h3>The order in the text</h3><div class="map">${FORDER.map((p,i)=>`<div class="mrow ${f.shown?'':(f.pick[i]===p?'good':'bad')}"><span class="pn">${p}</span><span><b>${FLOW[p].tag==='(opening)'||FLOW[p].tag==='(next)'?'':FLOW[p].tag+' · '}</b>${FROLE[p][0]} ${ev(FROLE[p][1])}</span></div>`).join('')}</div>`;
+  }
+  return `<section class="slide">
+<h2>Follow the order of ideas</h2>
+<p class="lead">The writer moves from one idea to the next. Tap the cards in the order they appear in the text, from the first paragraph to the last.</p>
+<div class="fcards">${cards}</div>
+<div class="actions" style="margin:0 0 1rem"><button class="btn" data-act="flow-undo"${f.done||!f.pick.length?' disabled':''}>Undo</button><button class="btn" data-act="flow-reset">Reset</button><button class="btn" data-act="flow-show">Show answer</button></div>
+${out}
+${f.done?`<div class="note">Look at the connectives: <b>First and foremost → Furthermore → Moreover → However → In conclusion</b>. They show the order of the ideas.</div>`:''}
+</section>`}
+
+function rTopic(){
+  const t=S.topic;
+  return `<section class="slide">
+<h2>Find the topic sentence</h2>
+<p class="lead">The topic sentence tells the main idea of the paragraph. Tap one line in each paragraph.</p>
+${P.map(p=>{
+  const sel=t.sel[p.id];const ok=t.checked&&sel===p.topic;
+  return `<div class="win"><div class="wh">${p.id} · choose one line</div><div class="tls">${p.lines.map(([n,h])=>{let c='tl';if(sel===n)c+=' sel';if(t.checked){if(n===p.topic)c+=' right';else if(sel===n)c+=' wrong'}return `<button class="${c}" data-act="topic-pick" data-p="${p.id}" data-l="${n}"${t.checked?' disabled':''}><span class="no">${n}</span><span>${h}</span></button>`}).join('')}</div>${t.checked?`<div class="fb ${ok?'pass':'fail'}">${ok?'✓':'✗'} Topic sentence: L${p.topic}. ${p.why}</div>`:''}</div>`}).join('')}
+${t.checked?`<div class="res ${SCORE.topic&&SCORE.topic[0]===7?'pass':'fail'}">${SCORE.topic?SCORE.topic[0]+' / 7 correct':'Answers shown'}</div>`:''}
+<div class="actions"><button class="btn primary" data-act="topic-check"${t.checked?' disabled':''}>Run test</button><button class="btn" data-act="topic-show">Show answers</button><button class="btn" data-act="topic-reset">Reset</button></div>
+</section>`}
+
+function rQs(){
+  const q=S.q;const cur=QS[q.i];const shown=q.shown[cur.k];
+  return `<section class="slide">
+<h2>Answer the questions, then find the evidence</h2>
+<p class="lead">Think and say your answer first. Then run the test to see the answer, the reason, and the line in the text.</p>
+<div class="qgrid"><div class="qnav" role="tablist">${QS.map((x,i)=>`<button role="tab" data-act="q-pick" data-i="${i}" aria-current="${i===q.i}" class="${q.shown[x.k]?'shown':''}">${x.k}</button>`).join('')}</div>
+<div class="qbody"><p class="qq">${cur.k}. ${cur.q}</p>
+${shown?`<div class="ans"><span class="lbl">answer</span>${cur.a}</div><div class="why"><span class="lbl">why · evidence ${ev(cur.ev)}</span>${cur.why}<br><span style="color:var(--muted)">${cur.id}</span></div>`:`<button class="btn primary" data-act="q-run">Run test</button>`}
+</div></div>
+</section>`}
+
+function rFO(){
+  const f=S.fo;const n=Object.keys(f.ans).length;
+  const facts=FOS.filter(x=>x.type==='fact'),ops=FOS.filter(x=>x.type==='opinion');
+  return `<section class="slide">
+<h2>Fact or opinion?</h2>
+<p class="lead">A fact can be checked with data or by looking. An opinion shows what the writer thinks. Words like <i>central, vital, critical, essential</i> and <i>can secure</i> often show an opinion.</p>
+<div class="win"><div class="wh">fact_opinion.test</div>${FOS.map((x,i)=>{
+  const a=f.ans[i];const res=a?(a===x.type?'pass':'fail'):'';
+  return `<div class="fo ${res}"><span>${x.t}</span><span class="pair"><button data-act="fo-pick" data-i="${i}" data-v="fact" class="${a==='fact'?'chosen':''}"${a?' disabled':''}>fact</button><button data-act="fo-pick" data-i="${i}" data-v="opinion" class="${a==='opinion'?'chosen':''}"${a?' disabled':''}>opinion</button></span>${a?`<div class="fb ${res}">${res==='pass'?'✓':'✗ It is an '+(x.type==='fact'?'<b>fact</b>':'<b>opinion</b>')+'.'} ${x.why} ${ev(x.ev)}</div>`:''}</div>`}).join('')}</div>
+<div class="actions" style="margin:0 0 1rem"><button class="btn" data-act="fo-table">${f.table?'Hide':'Show'} answer table</button><button class="btn" data-act="fo-reset">Reset</button></div>
+${f.table||n===FOS.length?`<div class="win"><div class="wh">your table: Preserving Rice Fields for Future Generations</div><div class="two"><div><h3 style="padding:.7rem 1rem 0">Facts</h3><ol>${facts.map(x=>`<li>${x.t} ${ev(x.ev)}</li>`).join('')}</ol></div><div><h3 style="padding:.7rem 1rem 0">Opinions</h3><ol>${ops.map(x=>`<li>${x.t} ${ev(x.ev)}</li>`).join('')}</ol></div></div></div>`:''}
+</section>`}
+
+function rGenre(){
+  return `<section class="slide">
+<h2>What is a discussion text?</h2>
+<p class="lead">A discussion text shows different sides of an issue. It gives reasons and evidence, so readers can think and make their own opinion.</p>
+<div class="cols"><div>
+<h3>Three purposes</h3>
+<ul class="ul"><li><b>To give information</b> about an issue, with different opinions and arguments.</li><li><b>To make readers think</b> carefully and form their own opinion.</li><li><b>To start a debate</b> by showing opposite views.</li></ul>
+</div><div>
+<h3>Structure, with our text</h3>
+<div class="parts">
+<div class="part"><span class="l">a</span><div><b>Statement of issue</b><br>Introduces the topic and sets the context. ${ev([1,2])}</div></div>
+<div class="part"><span class="l">b</span><div><b>List of supporting points</b><br>Points for one side, each in its own paragraph. ${ev([3,4,5,6,7,8,9,10,11])}</div></div>
+<div class="part"><span class="l">c</span><div><b>List of contrast points</b><br>The other side: here, the problem and its impact. ${ev([12,13,14,15,16,17,18])}</div></div>
+<div class="part"><span class="l">d</span><div><b>Recommendations</b><br>Suggestions after both sides. ${ev([19,20,21])}</div></div>
+</div></div></div>
+<div class="note">Catatan guru: pada teks ini bagian "contrast" berupa masalah (jumlah sawah menurun), bukan pendapat yang berlawanan. Rekomendasi ada di kalimat terakhir (L21).</div>
+<div class="actions"><button class="btn" data-act="topic-mode">Show topic sentences in the text</button></div>
+</section>`}
+
+function rLang(){
+  return `<section class="slide">
+<h2>Language features of a discussion text</h2>
+<p class="lead">Tap the line numbers to see each feature highlighted in the text.</p>
+<div class="fgrid">${LANG.map(x=>`<div class="feat"><h3>${x.n}</h3><p style="margin:0 0 .4rem">${x.def}</p><p class="ex" style="margin:0 0 .4rem">Book example: ${x.ex}</p>
+${x.here?`<p class="here"><b>In our text:</b> ${x.here.map(([l,w])=>`${w} ${ev(l,x.mode)}`).join(' · ')}</p>`:''}
+${x.note?`<p class="here" style="color:var(--muted)">${x.note}</p>`:''}</div>`).join('')}</div>
+</section>`}
+
+function rRes(){
+  const rows=[['match','vocabulary match'],['fill','complete the sentences'],['flow','order of ideas'],['topic','topic sentences'],['q','questions opened'],['fo','fact or opinion']];
+  const log=rows.map(([k,l])=>{const s=SCORE[k];const dots='.'.repeat(Math.max(2,30-l.length));return s?`<span class="${s[0]===s[1]?'p':'f'}">${s[0]===s[1]?'pass':'fail'}</span>  ${l} ${dots} ${s[0]}/${s[1]}`:`<span class="n">todo</span>  ${l} ${dots} not done yet`}).join('\n');
+  return `<section class="slide">
+<h2>Your results</h2>
+<div class="win"><div class="wh">results.log</div><div class="log">${log}</div></div>
+<h3>Exit ticket</h3>
+<ol class="ul"><li>Write one sentence with a new word from this lesson.</li><li>Name the four parts of a discussion text.</li><li>Write one fact and one opinion about rice fields.</li></ol>
+<div class="actions"><button class="btn" data-go="0">Back to start</button></div>
+</section>`}
+
+const SL=[
+{tab:'start.md',r:rStart},{tab:'vocabulary.js',r:rVocab},{tab:'match.test',r:rMatch,k:'match'},{tab:'fill.test',r:rFill,k:'fill'},
+{tab:'flow.js',r:rFlow,k:'flow'},{tab:'topic.test',r:rTopic,k:'topic'},{tab:'questions.js',r:rQs,k:'q'},{tab:'fact_opinion.test',r:rFO,k:'fo'},
+{tab:'genre.md',r:rGenre},{tab:'language.md',r:rLang},{tab:'results.log',r:rRes}];
+
+/* ============ NAV ============ */
+function renderTabs(){
+  $('#tabs').innerHTML=SL.map((s,i)=>`<button class="tab${SEEN.has(i)?' seen':''}${s.k&&DONE[s.k]?' done':''}" data-go="${i}" aria-current="${i===cur}"><span class="dot"></span>${s.tab}</button>`).join('');
+  const c=document.querySelector('.tab[aria-current="true"]');if(c)c.scrollIntoView({inline:'nearest',block:'nearest'});
+}
+function show(keep){
+  const st=main.scrollTop;SEEN.add(cur);
+  main.innerHTML=SL[cur].r();
+  main.scrollTop=keep?st:0;
+  renderTabs();
+  $('#pos').textContent=(cur+1)+' / '+SL.length;
+  $('#prev').disabled=cur===0;$('#next').disabled=cur===SL.length-1;
+}
+function go(i){cur=Math.max(0,Math.min(SL.length-1,i));show(false)}
+function finish(k,sc){DONE[k]=true;if(sc)SCORE[k]=sc}
+
+/* ============ EVENTS ============ */
+document.addEventListener('click',e=>{
+  const evb=e.target.closest('.ev');
+  if(evb){openPassage(evb.dataset.l.split(',').map(Number),evb.dataset.m);return}
+  const g=e.target.closest('[data-go]');
+  if(g){go(+g.dataset.go);return}
+  const a=e.target.closest('[data-act]');if(!a)return;
+  const d=a.dataset;
+  switch(d.act){
+    case 'open-text':openPassage([]);break;
+    case 'topic-mode':setMode('topic',true);openPassage([]);break;
+    case 'vtab':S.vtab=d.v;show(true);break;
+    case 'match-check':{const m=S.match;const n=Object.keys(MW).filter(k=>k!=='a'&&m.sel[k]===k).length;m.checked=true;finish('match',[n,7]);show(true);break}
+    case 'match-show':{const m=S.match;Object.keys(MW).forEach(k=>m.sel[k]=k);m.checked=true;DONE.match=true;SCORE.match=null;show(true);break}
+    case 'match-reset':S.match={sel:{},checked:false};SCORE.match=null;DONE.match=false;show(true);break;
+    case 'fill-check':{const f=S.fill;const n=FILL.filter(r=>r.ans.includes(f.sel[r.k])).length;f.checked=true;finish('fill',[n,8]);show(true);break}
+    case 'fill-show':{const f=S.fill;FILL.forEach(r=>f.sel[r.k]=r.ans[0]);f.checked=true;DONE.fill=true;SCORE.fill=null;show(true);break}
+    case 'fill-reset':S.fill={sel:{},checked:false};SCORE.fill=null;DONE.fill=false;show(true);break;
+    case 'flow-pick':{const f=S.flow;if(f.done)break;f.pick.push(d.p);if(f.pick.length===7){f.done=true;f.shown=false;const n=f.pick.filter((p,i)=>p===FORDER[i]).length;finish('flow',[n,7])}show(true);break}
+    case 'flow-undo':if(!S.flow.done)S.flow.pick.pop();show(true);break;
+    case 'flow-reset':S.flow={pick:[],done:false};SCORE.flow=null;DONE.flow=false;show(true);break;
+    case 'flow-show':S.flow={pick:[...FORDER],done:true,shown:true};DONE.flow=true;show(true);break;
+    case 'topic-pick':if(!S.topic.checked){S.topic.sel[d.p]=+d.l;show(true)}break;
+    case 'topic-check':{const t=S.topic;const n=P.filter(p=>t.sel[p.id]===p.topic).length;t.checked=true;finish('topic',[n,7]);show(true);break}
+    case 'topic-show':{const t=S.topic;P.forEach(p=>t.sel[p.id]=p.topic);t.checked=true;DONE.topic=true;SCORE.topic=null;show(true);break}
+    case 'topic-reset':S.topic={sel:{},checked:false};SCORE.topic=null;DONE.topic=false;show(true);break;
+    case 'q-pick':S.q.i=+d.i;show(true);break;
+    case 'q-run':{S.q.shown[QS[S.q.i].k]=true;const n=Object.keys(S.q.shown).length;SCORE.q=[n,9];if(n===9)DONE.q=true;show(true);break}
+    case 'fo-pick':{S.fo.ans[d.i]=d.v;const n=Object.keys(S.fo.ans).length;const ok=FOS.filter((x,i)=>S.fo.ans[i]===x.type).length;if(n===FOS.length)finish('fo',[ok,10]);show(true);break}
+    case 'fo-table':S.fo.table=!S.fo.table;show(true);break;
+    case 'fo-reset':S.fo={ans:{},table:false};SCORE.fo=null;DONE.fo=false;show(true);break;
+  }
+});
+document.addEventListener('change',e=>{
+  const s=e.target.closest('select[data-kind]');if(!s)return;
+  S[s.dataset.kind].sel[s.dataset.k]=s.value;
+});
+$('#prev').onclick=()=>go(cur-1);
+$('#next').onclick=()=>go(cur+1);
+$('#btnText').onclick=()=>drawer.classList.contains('open')?closePassage():openPassage([]);
+$('#dclose').onclick=closePassage;
+$('#dtools').addEventListener('click',e=>{const b=e.target.closest('[data-mode]');if(b)setMode(b.dataset.mode,b.getAttribute('aria-pressed')!=='true')});
+function curTheme(){const d=document.documentElement.dataset.theme;if(d)return d;return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}
+$('#btnTheme').onclick=()=>{document.documentElement.dataset.theme=curTheme()==='dark'?'light':'dark'};
+document.addEventListener('keydown',e=>{
+  const t=e.target.tagName;if(t==='SELECT'||t==='TEXTAREA'||t==='INPUT')return;
+  if(e.key==='ArrowRight')go(cur+1);
+  else if(e.key==='ArrowLeft')go(cur-1);
+  else if(e.key==='p'||e.key==='P')$('#btnText').click();
+  else if(e.key==='Escape')closePassage();
+});
+
+renderPassage();
+show(false);
+</script>
+</body>
+</html>
